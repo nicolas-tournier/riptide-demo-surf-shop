@@ -196,7 +196,7 @@
                 border-bottom: 1px solid #eee;
                 /* Add bottom border when stacked */
                 /* padding: 1.5rem; from desktop, or adjust e.g. padding: 1rem; */
-                padding: 0.5rem 1.5rem;
+                padding: 0;
             }
 
             .left-panel iframe {
@@ -206,9 +206,6 @@
                 /* Take full width of left-panel's content box */
                 border: none;
                 display: block; /* Good practice */
-                /* min-height: 70vh; */ /* Removed: JS will set height based on content when media query is active. */
-                                     /* Otherwise, flex-grow:1 from desktop styles (via .left-panel iframe) will attempt to fill space. */
-                /* Helps iframe grow correctly in flex container */
             }
 
             .right-panel {
@@ -286,7 +283,6 @@
             function handleIframeHeight(newHeight) {
                 if (iframe && mediaQuery.matches) {
                     iframe.style.height = newHeight + 'px';
-                    console.log(`Parent: Iframe height set to ${newHeight}px (media query active).`);
                 } else if (iframe) {
                     // If media query is not active, clear inline style to let CSS handle it
                     iframe.style.height = '';
@@ -299,48 +295,43 @@
 
                 // Wait for the iframe content to load before sending the message
                 iframe.onload = function () {
-                    console.log('Parent: Iframe loaded. Sending initial messages.');
                     // Send customer domain
                     iframe.contentWindow.postMessage(
                         { type: 'SET_CUSTOMER_DOMAIN', domain: customerDomain },
                         'https://www.riptide.compare'
                     );
-                    console.log('Parent: Sent SET_CUSTOMER_DOMAIN:', customerDomain);
 
+                    const parentOriginForIframe = window.location.origin;
                     // Request initial height from iframe, providing parent's origin
                     // so iframe knows where to send the height back securely.
                     iframe.contentWindow.postMessage(
-                        { type: 'REQUEST_IFRAME_HEIGHT', origin: window.location.origin },
+                        { type: 'REQUEST_IFRAME_HEIGHT', origin: parentOriginForIframe },
                         'https://www.riptide.compare'
                     );
-                    console.log('Parent: Sent REQUEST_IFRAME_HEIGHT with origin:', window.location.origin);
                 };
 
                 // Optional: Add error handling for iframe loading
                 iframe.onerror = function () {
-                    console.error('Error loading iframe content (from host page script).');
+                    console.error('Parent: Error loading iframe content.');
+                    // Consider more robust error handling or user notification if needed
                 };
             } else {
-                console.error('Iframe with ID "riptideIframe" not found.');
+                console.error('Parent: Iframe with ID "riptideIframe" not found on DOMContentLoaded.');
             }
 
             // Listen for messages from the iframe
             window.addEventListener('message', function (event) {
                 // IMPORTANT: Always verify the origin of the message for security!
                 if (event.origin !== 'https://www.riptide.compare') {
-                    // console.warn('Parent: Message received from unexpected origin:', event.origin);
+                    // console.log('Parent: Received message from other origin, ignoring:', event.origin, event.data);
                     return;
                 }
 
                 const data = event.data;
-
                 if (typeof data === 'object' && data !== null) {
                     if (data.type === 'IFRAME_CONTENT_HEIGHT') {
                         if (typeof data.height === 'number') {
-                            console.log('Parent: Received IFRAME_CONTENT_HEIGHT:', data.height);
                             handleIframeHeight(data.height);
-                        } else {
-                            console.warn('Parent: Received IFRAME_CONTENT_HEIGHT but height is not a number:', data);
                         }
                     }
                     // You can handle other message types here if needed
@@ -352,11 +343,9 @@
                 if (iframe && iframe.contentWindow) {
                     if (e.matches) {
                         // Media query is now active, request height from iframe
-                        console.log('Parent: Media query (max-width: 768px) activated. Requesting iframe height.');
                         iframe.contentWindow.postMessage({ type: 'REQUEST_IFRAME_HEIGHT', origin: window.location.origin }, 'https://www.riptide.compare');
                     } else {
                         // Media query is no longer active, clear inline height to let CSS rules apply
-                        console.log('Parent: Media query (max-width: 768px) deactivated. Reverting iframe height.');
                         iframe.style.height = '';
                     }
                 }
