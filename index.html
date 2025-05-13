@@ -112,15 +112,12 @@
 
         .left-panel iframe {
             flex-grow: 1;
-            /* Take available vertical space in left-panel */
             width: 100%;
-            /* Take full width of left-panel's content box */
             border: none;
             display: block;
-            /* Can help prevent extra space below iframe */
             min-height: 0;
-            /* Added: Helps iframe grow correctly in flex container */
             max-height: 100vh;
+            /* this line above ought to be included for all iframe containers on any client site */
         }
 
         .right-panel {
@@ -209,6 +206,7 @@
                 /* Add bottom border when stacked */
                 /* padding: 1.5rem; from desktop, or adjust e.g. padding: 1rem; */
                 padding: 0;
+                min-height: 100vh; /* !!!!!!!!!!!!!!!! this allows the iframe to take full height !!!!!!!!!!!!!!!!!!! */
             }
             .shop-logo-mobile {
                 display: block; /* Visible on mobile */
