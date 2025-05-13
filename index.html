@@ -40,10 +40,12 @@
         header {
             background-color: rgba(0, 77, 102, 0.9);
             color: #fff;
-            padding-top: 1.5rem; /* User's specified top padding */
+            padding-top: 1.5rem;
+            /* User's specified top padding */
             text-align: center;
             border-bottom: 3px solid #0099cc;
-            flex-shrink: 0; /* Prevent header from shrinking */
+            flex-shrink: 0;
+            /* Prevent header from shrinking */
         }
 
         header h1 {
@@ -54,39 +56,52 @@
         }
 
         header h2 {
-            margin: 0 0 1rem 0; /* Provides spacing below h1 and above border */
+            margin: 0 0 1rem 0;
+            /* Provides spacing below h1 and above border */
             font-size: 1.2rem;
             font-weight: 300;
             letter-spacing: 1px;
         }
 
         main {
-            flex-grow: 1; /* Allows main content to fill vertical space */
+            flex-grow: 1;
+            /* Allows main content to fill vertical space */
             display: flex;
             flex-direction: column;
-            overflow-y: auto; /* Add scroll to main if its content overflows */
-            min-height: 0; /* Important for nested flex items that need to grow */
+            overflow-y: auto;
+            /* Add scroll to main if its content overflows */
+            min-height: 0;
+            /* Important for nested flex items that need to grow */
         }
 
         .container {
-            display: flex; /* For side-by-side panels */
-            width: 100%;   /* Try to use full available width */
-            max-width: 1200px; /* But cap at 1200px */
-            margin: 2rem auto; /* Vertical margin, auto horizontal for centering */
-            padding: 0 1rem;   /* Horizontal padding inside container */
+            display: flex;
+            /* For side-by-side panels */
+            width: 100%;
+            /* Try to use full available width */
+            max-width: 1200px;
+            /* But cap at 1200px */
+            margin: 2rem auto;
+            /* Vertical margin, auto horizontal for centering */
+            padding: 0 1rem;
+            /* Horizontal padding inside container */
             background-color: rgba(255, 255, 255, 0.9);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            flex-grow: 1; /* Allow container to take vertical space within main */
-            min-height: 0; /* Crucial for allowing panels to stretch correctly */
+            flex-grow: 1;
+            /* Allow container to take vertical space within main */
+            min-height: 0;
+            /* Crucial for allowing panels to stretch correctly */
         }
 
         .left-panel {
-            flex: 2; /* Occupies 2/3 of the container width */
+            flex: 2;
+            /* Occupies 2/3 of the container width */
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            min-height: 0; /* Allow iframe to grow vertically */
+            min-height: 0;
+            /* Allow iframe to grow vertically */
         }
 
         /* .left-panel h2 style from original template, kept for completeness */
@@ -96,16 +111,23 @@
         }
 
         .left-panel iframe {
-            flex-grow: 1; /* Take available vertical space in left-panel */
-            width: 100%;  /* Take full width of left-panel's content box */
+            flex-grow: 1;
+            /* Take available vertical space in left-panel */
+            width: 100%;
+            /* Take full width of left-panel's content box */
             border: none;
-            display: block; /* Can help prevent extra space below iframe */
+            display: block;
+            /* Can help prevent extra space below iframe */
+            min-height: 0;
+            /* Added: Helps iframe grow correctly in flex container */
         }
 
         .right-panel {
-            flex: 1; /* Occupies 1/3 of the container width */
+            flex: 1;
+            /* Occupies 1/3 of the container width */
             padding: 1.5rem;
-            border-left: 1px solid #eee; /* Separator line */
+            border-left: 1px solid #eee;
+            /* Separator line */
         }
 
         .right-panel h2,
@@ -131,16 +153,27 @@
             margin-bottom: 1rem;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: block; /* Good practice for images */
+            display: block;
+            /* Good practice for images */
+        }
+
+        .shop-logo {
+            /* New style for the logo */
+            display: block;
+            width: 100%;
+            margin: 0 auto 1.5rem auto;
+            /* Centers the logo and adds space below */
         }
 
         footer {
             background-color: rgba(51, 51, 51, 0.9);
             color: #fff;
             text-align: center;
-            padding: 0.5rem 0; /* User's original footer padding */
+            padding: 0.5rem 0;
+            /* User's original footer padding */
             /* margin-top: 2rem; -- Less relevant as main pushes footer down */
-            flex-shrink: 0; /* Prevent footer from shrinking */
+            flex-shrink: 0;
+            /* Prevent footer from shrinking */
         }
 
         /* Responsive adjustments */
@@ -153,25 +186,46 @@
             }
 
             .left-panel {
-                flex-grow: 1; /* Ensure it grows vertically in column layout */
-                flex-basis: auto; /* Reset basis from desktop */
+                flex-grow: 1;
+                /* Ensure it grows vertically in column layout */
+                flex-basis: auto;
+                /* Reset basis from desktop */
                 width: 100%;
-                border-right: none; /* Remove side border */
-                border-bottom: 1px solid #eee; /* Add bottom border when stacked */
+                border-right: none;
+                /* Remove side border */
+                border-bottom: 1px solid #eee;
+                /* Add bottom border when stacked */
                 /* padding: 1.5rem; from desktop, or adjust e.g. padding: 1rem; */
+                padding: 0.5rem 1.5rem;
+            }
+
+            .left-panel iframe {
+                flex-grow: 1;
+                /* Take available vertical space in left-panel */
+                width: 100%;
+                /* Take full width of left-panel's content box */
+                border: none;
+                display: block; /* Good practice */
+                /* min-height: 70vh; */ /* Removed: JS will set height based on content when media query is active. */
+                                     /* Otherwise, flex-grow:1 from desktop styles (via .left-panel iframe) will attempt to fill space. */
+                /* Helps iframe grow correctly in flex container */
             }
 
             .right-panel {
-                flex-grow: 0; /* Don't grow vertically beyond content */
-                flex-shrink: 0; /* Don't shrink vertically beyond content */
+                flex-grow: 0;
+                /* Don't grow vertically beyond content */
+                flex-shrink: 0;
+                /* Don't shrink vertically beyond content */
                 flex-basis: auto;
                 width: 100%;
-                border-left: none; /* Remove side border */
+                border-left: none;
+                /* Remove side border */
                 /* padding: 1.5rem; from desktop, or adjust e.g. padding: 1rem; */
             }
 
             header h1 {
-                font-size: 2rem; /* User's original responsive size */
+                font-size: 2rem;
+                /* User's original responsive size */
             }
 
             header h2 {
@@ -192,19 +246,20 @@
         <main>
             <div class="container">
                 <aside class="left-panel">
-                    <iframe id="riptideIframe" src="https://www.riptide.compare"
-                        style="border: none;">
+                    <iframe id="riptideIframe" src="https://www.riptide.compare" style="border: none;">
                         Your browser doesn't support iframes.
                     </iframe>
                 </aside>
 
                 <section class="right-panel">
+                    <img src="slasher-logo.png" alt="Slasher Surf Shop Logo" class="shop-logo">
                     <div class="contact-section">
-                        <h2>Contact Nic</h2>
+                        <p><strong>Contact:</strong> Nic</p>
                         <p><strong>Email:</strong> riptide.compare@gmail.com</p>
                         <p><strong>Phone:</strong> (61) 0423 946 434</p>
                         <p><strong>Address:</strong> 123 Wavecrest Ave, Oceanville, NSW 2000</p>
-                        <p>With years of experience crafting surfboards for enthusiasts at every stage in their progression, we can bring your vision to life.</p>
+                        <p>With years of experience crafting surfboards for enthusiasts at every stage in their
+                            progression, we can bring your vision to life.</p>
                         <p>Get in touch to discuss your next board!</p>
                     </div>
 
@@ -224,9 +279,19 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
+        document.addEventListener('DOMContentLoaded', function () {
             const iframe = document.getElementById('riptideIframe');
+            const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+            function handleIframeHeight(newHeight) {
+                if (iframe && mediaQuery.matches) {
+                    iframe.style.height = newHeight + 'px';
+                    console.log(`Parent: Iframe height set to ${newHeight}px (media query active).`);
+                } else if (iframe) {
+                    // If media query is not active, clear inline style to let CSS handle it
+                    iframe.style.height = '';
+                }
+            }
 
             if (iframe) {
                 // This will correctly be the hostname of the page hosting the iframe (your site)
@@ -234,14 +299,21 @@
 
                 // Wait for the iframe content to load before sending the message
                 iframe.onload = function () {
-                    // Send the domain to the iframe
-                    // { type: 'SET_CUSTOMER_DOMAIN', domain: customerDomain } is the message data
-                    // 'https://riptide.compare' is the target origin (IMPORTANT for security)
+                    console.log('Parent: Iframe loaded. Sending initial messages.');
+                    // Send customer domain
                     iframe.contentWindow.postMessage(
                         { type: 'SET_CUSTOMER_DOMAIN', domain: customerDomain },
-                        'https://www.riptide.compare' // Ensure this matches the iframe's origin
+                        'https://www.riptide.compare'
                     );
-                    console.log('Sent customer domain to iframe from host page:', customerDomain); // For debugging
+                    console.log('Parent: Sent SET_CUSTOMER_DOMAIN:', customerDomain);
+
+                    // Request initial height from iframe, providing parent's origin
+                    // so iframe knows where to send the height back securely.
+                    iframe.contentWindow.postMessage(
+                        { type: 'REQUEST_IFRAME_HEIGHT', origin: window.location.origin },
+                        'https://www.riptide.compare'
+                    );
+                    console.log('Parent: Sent REQUEST_IFRAME_HEIGHT with origin:', window.location.origin);
                 };
 
                 // Optional: Add error handling for iframe loading
@@ -251,6 +323,44 @@
             } else {
                 console.error('Iframe with ID "riptideIframe" not found.');
             }
+
+            // Listen for messages from the iframe
+            window.addEventListener('message', function (event) {
+                // IMPORTANT: Always verify the origin of the message for security!
+                if (event.origin !== 'https://www.riptide.compare') {
+                    // console.warn('Parent: Message received from unexpected origin:', event.origin);
+                    return;
+                }
+
+                const data = event.data;
+
+                if (typeof data === 'object' && data !== null) {
+                    if (data.type === 'IFRAME_CONTENT_HEIGHT') {
+                        if (typeof data.height === 'number') {
+                            console.log('Parent: Received IFRAME_CONTENT_HEIGHT:', data.height);
+                            handleIframeHeight(data.height);
+                        } else {
+                            console.warn('Parent: Received IFRAME_CONTENT_HEIGHT but height is not a number:', data);
+                        }
+                    }
+                    // You can handle other message types here if needed
+                }
+            });
+
+            // Listen for changes in the media query
+            mediaQuery.addEventListener('change', function(e) {
+                if (iframe && iframe.contentWindow) {
+                    if (e.matches) {
+                        // Media query is now active, request height from iframe
+                        console.log('Parent: Media query (max-width: 768px) activated. Requesting iframe height.');
+                        iframe.contentWindow.postMessage({ type: 'REQUEST_IFRAME_HEIGHT', origin: window.location.origin }, 'https://www.riptide.compare');
+                    } else {
+                        // Media query is no longer active, clear inline height to let CSS rules apply
+                        console.log('Parent: Media query (max-width: 768px) deactivated. Reverting iframe height.');
+                        iframe.style.height = '';
+                    }
+                }
+            });
         });
     </script>
 </body>
