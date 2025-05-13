@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riptide Surf Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://riptide.compare/scripts/iframe_post_domain.js"></script>
     <style>
         /* Global box-sizing for easier layout management */
         html {
@@ -223,6 +222,37 @@
             </p>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const iframe = document.getElementById('riptideIframe');
+
+            if (iframe) {
+                // This will correctly be the hostname of the page hosting the iframe (your site)
+                const customerDomain = window.location.hostname;
+
+                // Wait for the iframe content to load before sending the message
+                iframe.onload = function () {
+                    // Send the domain to the iframe
+                    // { type: 'SET_CUSTOMER_DOMAIN', domain: customerDomain } is the message data
+                    // 'https://riptide.compare' is the target origin (IMPORTANT for security)
+                    iframe.contentWindow.postMessage(
+                        { type: 'SET_CUSTOMER_DOMAIN', domain: customerDomain },
+                        'https://www.riptide.compare' // Ensure this matches the iframe's origin
+                    );
+                    console.log('Sent customer domain to iframe from host page:', customerDomain); // For debugging
+                };
+
+                // Optional: Add error handling for iframe loading
+                iframe.onerror = function () {
+                    console.error('Error loading iframe content (from host page script).');
+                };
+            } else {
+                console.error('Iframe with ID "riptideIframe" not found.');
+            }
+        });
+    </script>
 </body>
 
 </html>
