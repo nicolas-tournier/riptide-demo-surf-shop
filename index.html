@@ -156,13 +156,22 @@
             display: block;
             /* Good practice for images */
         }
+        .shop-logo-mobile {
+            /* Style for the logo that appears above iframe on mobile */
+            display: none; /* Hidden by default (desktop) */
+            width: 100%; /* Takes full width of its container */
+            max-width: 300px; /* Optional: constrain logo width */
+            margin: 1rem auto 1.5rem auto; /* Top margin, centers, space below */
+            padding: 0 1rem; /* Add some horizontal padding if container's padding doesn't reach it */
+        }
 
-        .shop-logo {
-            /* New style for the logo */
-            display: block;
-            width: 100%;
+        .shop-logo-desktop {
+            /* Style for the logo in the right panel on desktop */
+            display: block; /* Visible by default (desktop) */
+            width: 100%; /* Or specific width as needed */
             margin: 0 auto 1.5rem auto;
             /* Centers the logo and adds space below */
+            padding: 0 1rem; /* Add some horizontal padding if container's padding doesn't reach it */
         }
 
         footer {
@@ -197,6 +206,17 @@
                 /* Add bottom border when stacked */
                 /* padding: 1.5rem; from desktop, or adjust e.g. padding: 1rem; */
                 padding: 0;
+            }
+            .shop-logo-mobile {
+                display: block; /* Visible on mobile */
+            }
+            .shop-logo-desktop {
+                display: none; /* Hidden on mobile */
+            }
+
+            .left-panel iframe {
+                flex-grow: 1;
+                margin-top: 1rem; /* Add some space above the logo on mobile */
             }
 
             .left-panel iframe {
@@ -242,16 +262,17 @@
 
         <main>
             <div class="container">
+                <!-- Logo for mobile view - above the iframe -->
+                <img src="slasher-logo.png" alt="Slasher Surf Shop Logo - Mobile" class="shop-logo-mobile">
                 <aside class="left-panel">
                     <iframe id="riptideIframe" src="https://www.riptide.compare" style="border: none;">
                         Your browser doesn't support iframes.
                     </iframe>
                 </aside>
-
                 <section class="right-panel">
-                    <img src="slasher-logo.png" alt="Slasher Surf Shop Logo" class="shop-logo">
+                    <img src="slasher-logo.png" alt="Slasher Surf Shop Logo - Desktop" class="shop-logo-desktop">
                     <div class="contact-section">
-                        <p><strong>Contact:</strong> Nic</p>
+                        <p><strong>Contact:</strong> Nic Slasher</p>
                         <p><strong>Email:</strong> riptide.compare@gmail.com</p>
                         <p><strong>Phone:</strong> (61) 0423 946 434</p>
                         <p><strong>Address:</strong> 123 Wavecrest Ave, Oceanville, NSW 2000</p>
