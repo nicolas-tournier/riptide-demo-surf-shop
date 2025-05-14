@@ -229,7 +229,7 @@
             <div class="container">
                 <img src="slasher-logo.png" alt="Slasher Surf Shop Logo - Mobile" class="shop-logo-mobile">
                 <aside class="left-panel">
-                    <iframe id="riptideIframe" src="http://localhost:5173/" style="border: none;">
+                    <iframe id="riptideIframe" src="https://www.riptide.compare" style="border: none;">
                         Your browser doesn't support iframes.
                     </iframe>
                 </aside>
@@ -278,13 +278,13 @@
                 iframe.onload = function () {
                     iframe.contentWindow.postMessage(
                         { type: 'SET_CUSTOMER_DOMAIN', domain: customerDomain },
-                        'http://localhost:5173/'
+                        'https://www.riptide.compare'
                     );
 
                     const parentOriginForIframe = window.location.origin;
                     iframe.contentWindow.postMessage(
                         { type: 'REQUEST_IFRAME_HEIGHT', origin: parentOriginForIframe },
-                        'http://localhost:5173/'
+                        'https://www.riptide.compare'
                     );
                 };
 
@@ -296,7 +296,7 @@
             }
 
             window.addEventListener('message', function (event) {
-                if (event.origin !== 'http://localhost:5173/') {
+                if (event.origin !== 'https://www.riptide.compare') {
                     return;
                 }
 
@@ -317,7 +317,7 @@
                     // as layout rules for the iframe container might change.
                     iframe.contentWindow.postMessage(
                         { type: 'REQUEST_IFRAME_HEIGHT', origin: window.location.origin },
-                        'http://localhost:5173/'
+                        'https://www.riptide.compare'
                     );
                 }
             });
