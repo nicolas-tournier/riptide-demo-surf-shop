@@ -33,7 +33,7 @@
             background-color: rgba(255, 255, 255, 0.8);
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh;
         }
 
         header {
@@ -64,7 +64,6 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            /* This will be the main scroller */
             min-height: 0;
         }
 
@@ -100,8 +99,6 @@
             border: none;
             display: block;
             min-height: 0;
-            /* Allows iframe to shrink if content is small, height will be set by JS */
-            /* max-height: 100vh; NO LONGER APPLIED to allow full content height */
         }
 
         .right-panel {
@@ -163,6 +160,13 @@
         }
 
         @media (max-width: 768px) {
+            .page-overlay {
+                height: auto;
+                min-height: 100vh;
+            }
+            main {
+                 /* On mobile, main might not need to be the primary scroller if page-overlay handles it */
+            }
             .container {
                 flex-direction: column;
                 margin-top: 1rem;
@@ -177,7 +181,6 @@
                 border-bottom: 1px solid #eee;
                 padding: 0;
                 min-height: 100vh;
-                /* Ensures left panel (and thus iframe) takes at least full screen height on mobile */
             }
 
             .shop-logo-mobile {
@@ -190,7 +193,6 @@
 
             .left-panel iframe {
                 margin-top: 1rem;
-                /* Only if .shop-logo-mobile is present and above */
                 flex-grow: 1;
                 width: 100%;
                 border: none;
@@ -267,7 +269,6 @@
 
             function handleIframeHeight(newHeight) {
                 if (iframe) {
-                    // Always set the height based on the message from the iframe
                     iframe.style.height = newHeight + 'px';
                 }
             }
@@ -313,8 +314,6 @@
 
             mediaQuery.addEventListener('change', function (e) {
                 if (iframe && iframe.contentWindow) {
-                    // When switching between mobile/desktop, re-request height
-                    // as layout rules for the iframe container might change.
                     iframe.contentWindow.postMessage(
                         { type: 'REQUEST_IFRAME_HEIGHT', origin: window.location.origin },
                         'https://www.riptide.compare'
